@@ -47,7 +47,17 @@ def merge_datasets(df1, df2,column):
 
 
 merge_df = merge_datasets(df_CO2,df_GDP,column=['Country Name','Year'])
-print(merge_df)
+
+
+
+
+import pandas as pd
+from sklearn import preprocessing
+
+x = merge_df[:,2:3].values #returns a numpy array
+min_max_scaler = preprocessing.MinMaxScaler()
+x_scaled = min_max_scaler.fit_transform(x)
+df = pd.DataFrame(x_scaled)
 
 
 def scaler(df):
@@ -79,3 +89,5 @@ def backscale(arr, df_min, df_max):
         arr[:, i] = arr[:, i] * (maxima[i] - minima[i]) + minima[i]
 
     return arr
+
+np_arr =  backscale(arr, df_min, df_max)
